@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>hello页面</title>
+    <style>
+        div{
+            width: 100%;
+            height: 100%;
+            border: 1px solid black;
+            margin: 5px;
+            overflow: hidden;
+        }
+    </style>
+    <script>
+
+    </script>
+</head>
+<body>
+<h1 th:text="${msg}">原来的内容</h1>
+<textarea name="" id="" th:text="${msg}"></textarea>
+<br>
+爱好:
+<input th:each="hobby:${hobbyList}" th:text="${hobby}" th:value="${hobby}" type="checkbox"><br>
+<div th:if="${sex=='1'}">我是欧巴</div>
+<div th:text="#{hello.msg}"></div>
+</body>
+</html>

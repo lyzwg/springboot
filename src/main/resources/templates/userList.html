@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>$Title$</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>id</td>
+        <td>用户名</td>
+        <td>手机号</td>
+        <td>班级</td>
+        <td>角色</td>
+        <td>状态</td>
+        <td>操作</td>
+    </tr>
+    <!--<tr th:each="user:${userList}">
+        <td th:text="${user.id}">id</td>
+        <td th:text="${user.username}">用户名</td>
+        <td th:text="${user.phone}">手机号</td>
+        <td th:text="${user.classid}">班级</td>
+        <td th:text="${user.bak1}">角色</td>
+        <td th:text="${user.status}">状态</td>
+        <td>
+            <a href="@{/user/delete}">删除</a>
+            <a href="@{/user/edit}">修改</a>
+        </td>
+    </tr>-->
+
+    <!--th:object在标签范围内绑定一个对象-->
+    <tr th:object="${user}" th:each="user:${userList}">
+        <!--*{属性名} 使用选择变量表达式取 th:object-->
+        <td th:text="*{id}">id</td>
+        <td th:text="*{username}">用户名</td>
+        <td th:text="*{phone}">手机号</td>
+        <td th:text="*{classid}">班级</td>
+        <td th:text="*{bak1}">角色</td>
+        <td th:text="*{status}">状态</td>
+        <td>
+            <a th:href="@{/user/delete(id=*{id})}">删除</a>
+            <a th:href="@{/user/edit(id=*{id})}">修改</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

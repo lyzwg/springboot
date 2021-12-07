@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjy.springboot.mapper.TReportMapper">
+  <resultMap id="BaseResultMap" type="com.zjy.springboot.pojo.TReport">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="REPORTUSER" jdbcType="DECIMAL" property="reportuser" />
+    <result column="REPORTTIME" jdbcType="TIMESTAMP" property="reporttime" />
+    <result column="REPORTTYPE" jdbcType="CHAR" property="reporttype" />
+    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+    <result column="REPORTDATAID" jdbcType="DECIMAL" property="reportdataid" />
+    <result column="REPORTDATATYPE" jdbcType="CHAR" property="reportdatatype" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="BAK1" jdbcType="VARCHAR" property="bak1" />
+    <result column="BAK2" jdbcType="VARCHAR" property="bak2" />
+    <result column="BAK3" jdbcType="VARCHAR" property="bak3" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, REPORTUSER, REPORTTIME, REPORTTYPE, CONTENT, REPORTDATAID, REPORTDATATYPE, STATUS, 
+    BAK1, BAK2, BAK3
+  </sql>
+  <select id="selectByExample" parameterType="com.zjy.springboot.pojo.TReportExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_REPORT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_REPORT
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from T_REPORT
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zjy.springboot.pojo.TReportExample">
+    delete from T_REPORT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zjy.springboot.pojo.TReport">
+    insert into T_REPORT (ID, REPORTUSER, REPORTTIME, 
+      REPORTTYPE, CONTENT, REPORTDATAID, 
+      REPORTDATATYPE, STATUS, BAK1, 
+      BAK2, BAK3)
+    values (#{id,jdbcType=DECIMAL}, #{reportuser,jdbcType=DECIMAL}, #{reporttime,jdbcType=TIMESTAMP}, 
+      #{reporttype,jdbcType=CHAR}, #{content,jdbcType=VARCHAR}, #{reportdataid,jdbcType=DECIMAL}, 
+      #{reportdatatype,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{bak1,jdbcType=VARCHAR}, 
+      #{bak2,jdbcType=VARCHAR}, #{bak3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zjy.springboot.pojo.TReport">
+    insert into T_REPORT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="reportuser != null">
+        REPORTUSER,
+      </if>
+      <if test="reporttime != null">
+        REPORTTIME,
+      </if>
+      <if test="reporttype != null">
+        REPORTTYPE,
+      </if>
+      <if test="content != null">
+        CONTENT,
+      </if>
+      <if test="reportdataid != null">
+        REPORTDATAID,
+      </if>
+      <if test="reportdatatype != null">
+        REPORTDATATYPE,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="bak1 != null">
+        BAK1,
+      </if>
+      <if test="bak2 != null">
+        BAK2,
+      </if>
+      <if test="bak3 != null">
+        BAK3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="reportuser != null">
+        #{reportuser,jdbcType=DECIMAL},
+      </if>
+      <if test="reporttime != null">
+        #{reporttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reporttype != null">
+        #{reporttype,jdbcType=CHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="reportdataid != null">
+        #{reportdataid,jdbcType=DECIMAL},
+      </if>
+      <if test="reportdatatype != null">
+        #{reportdatatype,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="bak1 != null">
+        #{bak1,jdbcType=VARCHAR},
+      </if>
+      <if test="bak2 != null">
+        #{bak2,jdbcType=VARCHAR},
+      </if>
+      <if test="bak3 != null">
+        #{bak3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zjy.springboot.pojo.TReportExample" resultType="java.lang.Long">
+    select count(*) from T_REPORT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update T_REPORT
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reportuser != null">
+        REPORTUSER = #{record.reportuser,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reporttime != null">
+        REPORTTIME = #{record.reporttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.reporttype != null">
+        REPORTTYPE = #{record.reporttype,jdbcType=CHAR},
+      </if>
+      <if test="record.content != null">
+        CONTENT = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reportdataid != null">
+        REPORTDATAID = #{record.reportdataid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reportdatatype != null">
+        REPORTDATATYPE = #{record.reportdatatype,jdbcType=CHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.bak1 != null">
+        BAK1 = #{record.bak1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bak2 != null">
+        BAK2 = #{record.bak2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bak3 != null">
+        BAK3 = #{record.bak3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update T_REPORT
+    set ID = #{record.id,jdbcType=DECIMAL},
+      REPORTUSER = #{record.reportuser,jdbcType=DECIMAL},
+      REPORTTIME = #{record.reporttime,jdbcType=TIMESTAMP},
+      REPORTTYPE = #{record.reporttype,jdbcType=CHAR},
+      CONTENT = #{record.content,jdbcType=VARCHAR},
+      REPORTDATAID = #{record.reportdataid,jdbcType=DECIMAL},
+      REPORTDATATYPE = #{record.reportdatatype,jdbcType=CHAR},
+      STATUS = #{record.status,jdbcType=CHAR},
+      BAK1 = #{record.bak1,jdbcType=VARCHAR},
+      BAK2 = #{record.bak2,jdbcType=VARCHAR},
+      BAK3 = #{record.bak3,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zjy.springboot.pojo.TReport">
+    update T_REPORT
+    <set>
+      <if test="reportuser != null">
+        REPORTUSER = #{reportuser,jdbcType=DECIMAL},
+      </if>
+      <if test="reporttime != null">
+        REPORTTIME = #{reporttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reporttype != null">
+        REPORTTYPE = #{reporttype,jdbcType=CHAR},
+      </if>
+      <if test="content != null">
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="reportdataid != null">
+        REPORTDATAID = #{reportdataid,jdbcType=DECIMAL},
+      </if>
+      <if test="reportdatatype != null">
+        REPORTDATATYPE = #{reportdatatype,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="bak1 != null">
+        BAK1 = #{bak1,jdbcType=VARCHAR},
+      </if>
+      <if test="bak2 != null">
+        BAK2 = #{bak2,jdbcType=VARCHAR},
+      </if>
+      <if test="bak3 != null">
+        BAK3 = #{bak3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zjy.springboot.pojo.TReport">
+    update T_REPORT
+    set REPORTUSER = #{reportuser,jdbcType=DECIMAL},
+      REPORTTIME = #{reporttime,jdbcType=TIMESTAMP},
+      REPORTTYPE = #{reporttype,jdbcType=CHAR},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      REPORTDATAID = #{reportdataid,jdbcType=DECIMAL},
+      REPORTDATATYPE = #{reportdatatype,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      BAK1 = #{bak1,jdbcType=VARCHAR},
+      BAK2 = #{bak2,jdbcType=VARCHAR},
+      BAK3 = #{bak3,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

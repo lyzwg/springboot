@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjy.springboot.mapper.TFileMapper">
+  <resultMap id="BaseResultMap" type="com.zjy.springboot.pojo.TFile">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="FILENAME" jdbcType="VARCHAR" property="filename" />
+    <result column="FILE_SIZE" jdbcType="DECIMAL" property="fileSize" />
+    <result column="URL" jdbcType="VARCHAR" property="url" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="FILETYPE" jdbcType="VARCHAR" property="filetype" />
+    <result column="ISSHARE" jdbcType="CHAR" property="isshare" />
+    <result column="USERID" jdbcType="DECIMAL" property="userid" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="BAK1" jdbcType="VARCHAR" property="bak1" />
+    <result column="BAK2" jdbcType="VARCHAR" property="bak2" />
+    <result column="BAK3" jdbcType="VARCHAR" property="bak3" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, FILENAME, FILE_SIZE, URL, CREATETIME, FILETYPE, ISSHARE, USERID, STATUS, BAK1, 
+    BAK2, BAK3
+  </sql>
+  <select id="selectByExample" parameterType="com.zjy.springboot.pojo.TFileExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_FILE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_FILE
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from T_FILE
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zjy.springboot.pojo.TFileExample">
+    delete from T_FILE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zjy.springboot.pojo.TFile">
+    insert into T_FILE (ID, FILENAME, FILE_SIZE, 
+      URL, CREATETIME, FILETYPE, 
+      ISSHARE, USERID, STATUS, 
+      BAK1, BAK2, BAK3)
+    values (#{id,jdbcType=DECIMAL}, #{filename,jdbcType=VARCHAR}, #{fileSize,jdbcType=DECIMAL}, 
+      #{url,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{filetype,jdbcType=VARCHAR}, 
+      #{isshare,jdbcType=CHAR}, #{userid,jdbcType=DECIMAL}, #{status,jdbcType=CHAR}, 
+      #{bak1,jdbcType=VARCHAR}, #{bak2,jdbcType=VARCHAR}, #{bak3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zjy.springboot.pojo.TFile">
+    insert into T_FILE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="filename != null">
+        FILENAME,
+      </if>
+      <if test="fileSize != null">
+        FILE_SIZE,
+      </if>
+      <if test="url != null">
+        URL,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="filetype != null">
+        FILETYPE,
+      </if>
+      <if test="isshare != null">
+        ISSHARE,
+      </if>
+      <if test="userid != null">
+        USERID,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="bak1 != null">
+        BAK1,
+      </if>
+      <if test="bak2 != null">
+        BAK2,
+      </if>
+      <if test="bak3 != null">
+        BAK3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="filename != null">
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null">
+        #{fileSize,jdbcType=DECIMAL},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="filetype != null">
+        #{filetype,jdbcType=VARCHAR},
+      </if>
+      <if test="isshare != null">
+        #{isshare,jdbcType=CHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="bak1 != null">
+        #{bak1,jdbcType=VARCHAR},
+      </if>
+      <if test="bak2 != null">
+        #{bak2,jdbcType=VARCHAR},
+      </if>
+      <if test="bak3 != null">
+        #{bak3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zjy.springboot.pojo.TFileExample" resultType="java.lang.Long">
+    select count(*) from T_FILE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update T_FILE
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.filename != null">
+        FILENAME = #{record.filename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileSize != null">
+        FILE_SIZE = #{record.fileSize,jdbcType=DECIMAL},
+      </if>
+      <if test="record.url != null">
+        URL = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        CREATETIME = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.filetype != null">
+        FILETYPE = #{record.filetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isshare != null">
+        ISSHARE = #{record.isshare,jdbcType=CHAR},
+      </if>
+      <if test="record.userid != null">
+        USERID = #{record.userid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.bak1 != null">
+        BAK1 = #{record.bak1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bak2 != null">
+        BAK2 = #{record.bak2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bak3 != null">
+        BAK3 = #{record.bak3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update T_FILE
+    set ID = #{record.id,jdbcType=DECIMAL},
+      FILENAME = #{record.filename,jdbcType=VARCHAR},
+      FILE_SIZE = #{record.fileSize,jdbcType=DECIMAL},
+      URL = #{record.url,jdbcType=VARCHAR},
+      CREATETIME = #{record.createtime,jdbcType=TIMESTAMP},
+      FILETYPE = #{record.filetype,jdbcType=VARCHAR},
+      ISSHARE = #{record.isshare,jdbcType=CHAR},
+      USERID = #{record.userid,jdbcType=DECIMAL},
+      STATUS = #{record.status,jdbcType=CHAR},
+      BAK1 = #{record.bak1,jdbcType=VARCHAR},
+      BAK2 = #{record.bak2,jdbcType=VARCHAR},
+      BAK3 = #{record.bak3,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zjy.springboot.pojo.TFile">
+    update T_FILE
+    <set>
+      <if test="filename != null">
+        FILENAME = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null">
+        FILE_SIZE = #{fileSize,jdbcType=DECIMAL},
+      </if>
+      <if test="url != null">
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="filetype != null">
+        FILETYPE = #{filetype,jdbcType=VARCHAR},
+      </if>
+      <if test="isshare != null">
+        ISSHARE = #{isshare,jdbcType=CHAR},
+      </if>
+      <if test="userid != null">
+        USERID = #{userid,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="bak1 != null">
+        BAK1 = #{bak1,jdbcType=VARCHAR},
+      </if>
+      <if test="bak2 != null">
+        BAK2 = #{bak2,jdbcType=VARCHAR},
+      </if>
+      <if test="bak3 != null">
+        BAK3 = #{bak3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zjy.springboot.pojo.TFile">
+    update T_FILE
+    set FILENAME = #{filename,jdbcType=VARCHAR},
+      FILE_SIZE = #{fileSize,jdbcType=DECIMAL},
+      URL = #{url,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      FILETYPE = #{filetype,jdbcType=VARCHAR},
+      ISSHARE = #{isshare,jdbcType=CHAR},
+      USERID = #{userid,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=CHAR},
+      BAK1 = #{bak1,jdbcType=VARCHAR},
+      BAK2 = #{bak2,jdbcType=VARCHAR},
+      BAK3 = #{bak3,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

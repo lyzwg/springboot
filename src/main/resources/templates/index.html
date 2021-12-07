@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>$Title$</title>
+</head>
+<body>
+<!--session内置对象-->
+<div>欢迎<span th:text="${session.user?.username}"></span></div>
+
+<!--当涉及多层取值时，可以在对象的后面使用? 来判断对象是否为null，如果为null不会继续向后取值-->
+<div>application演示:<span th:text="${application.user?.username}"></span></div>
+
+<!--session内置对象 可以调用java方法-->
+<div>sessionId:<span th:text="${#session.getId()}"></span></div>
+<div>requestId:<span th:text="${#request.getRequestURI()}"></span></div>
+<!--引入代码片段-->
+<div th:include="~{head.html::headNav}">
+    <div>原有内容</div>
+</div>
+<div>
+    中间内容
+</div>
+<!--insert 会将代码片段 整个插入到当前标签中-->
+<div th:insert="~{head.html::footer}">
+    <div>底部原有内容</div>
+</div>
+</body>
+</html>
