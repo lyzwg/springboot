@@ -1,5 +1,6 @@
 package com.zjy.springboot.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zjy.springboot.mapper.UserMapper;
 import com.zjy.springboot.pojo.TUser;
 import com.zjy.springboot.service.UserService;
@@ -14,9 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -109,7 +108,7 @@ public class UserController {
         return map;
     }
     @SneakyThrows
-    @GetMapping("/test")
+    @GetMapping("/testLock")
     @ResponseBody
     public String test(){
         RLock lock = redissonClient.getLock("myLock");
@@ -127,5 +126,14 @@ public class UserController {
         }
         System.out.println("hello");
         return "hello";
+    }
+
+    @PostMapping("/test/filter")
+    @ResponseBody
+    public String filter(@RequestBody String map){
+        JSONObject emailJson = JSONObject.parseObject(map);
+        String email = emailJson.getString("email");
+        System.out.println(email);
+        return "请求成功";
     }
 }

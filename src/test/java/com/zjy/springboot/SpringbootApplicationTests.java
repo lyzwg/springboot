@@ -58,4 +58,10 @@ class SpringbootApplicationTests {
         PageInfo<TUser> pageInfo = new PageInfo<>(tUsers);
         System.out.println(pageInfo);
     }
+    @Test
+    public void test1(){
+        Integer a=20;
+        Integer b=new Integer(20);
+        System.out.println(a==b);
+    }
 }

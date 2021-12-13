@@ -3,9 +3,6 @@ package com.zjy.springboot.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.redisson.Redisson;
-import org.redisson.api.RedissonClient;
-import org.redisson.config.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -43,12 +40,4 @@ public class RedisConfig {
         return redisTemplate;
     }
 
-    @Bean
-    public RedissonClient redissonClient(){
-        Config config = new Config();
-        //集群环境
-//        config.useClusterServers().addNodeAddress("redis://101.132.73.120:6379").addNodeAddress("redis://101.132.73.120:6378");
-        config.useSingleServer().setAddress("redis://101.132.73.120:6379");
-        return Redisson.create(config);
-    }
 }
