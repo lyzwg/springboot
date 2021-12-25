@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor;
 
 @SpringBootTest
 class SpringbootApplicationTests {
@@ -26,6 +27,8 @@ class SpringbootApplicationTests {
     AmqpAdmin amqpAdmin;
     @Autowired
     RabbitTemplate rabbitTemplate;
+    @Resource
+    ThreadPoolExecutor threadPoolAutoConfiguration;
     @Test
     void contextLoads() {
     }
@@ -60,8 +63,6 @@ class SpringbootApplicationTests {
     }
     @Test
     public void test1(){
-        Integer a=20;
-        Integer b=new Integer(20);
-        System.out.println(a==b);
+        System.out.println(threadPoolAutoConfiguration.getCorePoolSize());
     }
 }

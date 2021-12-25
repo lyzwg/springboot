@@ -145,6 +145,25 @@
             <artifactId>xxl-job-core</artifactId>
             <version>2.3.0</version>
         </dependency>
+
+        <!-- @cacheable缓存依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+
+        <!--自定义的starter-->
+        <dependency>
+            <groupId>com.zjy</groupId>
+            <artifactId>mytest-spring-boot-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>org.springframework.boot</artifactId>-->
+<!--                    <groupId>spring-boot-starter</groupId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+        </dependency>
     </dependencies>
 
     <build>
