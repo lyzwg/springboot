@@ -15,6 +15,7 @@ public class A {
 }
 class B extends A{
     public B(){
+
         System.out.println("B构造方法加载");
     }
     {
