@@ -2,14 +2,12 @@ package com.zjy.springboot.aop;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zjy.springboot.mapper.TLogMapper;
 import com.zjy.springboot.pojo.TLog;
 import com.zjy.springboot.pojo.TUser;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -38,8 +36,6 @@ import java.util.Map;
 public class LogAspect {
 
     @Autowired
-    private TLogMapper logMapper;
-    @Autowired
     private RabbitTemplate rabbitTemplate;
     @Pointcut("execution(* com.zjy.springboot.controller.*.*(..))")
     public void pointcut(){
@@ -50,7 +46,7 @@ public class LogAspect {
 
     }
     @SneakyThrows
-    @Around("transform()")
+//    @Around("transform()")
     public Object BeforeTransform(ProceedingJoinPoint pjp){
         //重点 这里就是获取@RequestBody参数的关键  调试的情况下 可以看到arr变量已经获取到了请求的参数
         Object[] arr = pjp.getArgs();
@@ -177,7 +173,8 @@ public class LogAspect {
             tLog.setUserid(-1L);
         }
         //插入数据库 进行异步处理
-        logMapper.insert(tLog);
+//        logMapper.insert(tLog);
+
         //发送消息到mq
 //        rabbitTemplate.convertAndSend();
 

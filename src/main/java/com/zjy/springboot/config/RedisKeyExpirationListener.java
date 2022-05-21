@@ -15,6 +15,9 @@ public class RedisKeyExpirationListener extends KeyExpirationEventMessageListene
         super(listenerContainer);
     }
 
+    /**
+     * 针对 redis 数据失效事件，进行数据处理
+     */
     @Override
     public void onMessage(Message message, byte[] pattern) {
         System.out.println("检测到过期的key:" + message.toString());

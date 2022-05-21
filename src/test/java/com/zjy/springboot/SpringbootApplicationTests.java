@@ -2,8 +2,11 @@ package com.zjy.springboot;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zjy.springboot.mapper.ProductMapper;
 import com.zjy.springboot.mapper.UserMapper;
+import com.zjy.springboot.pojo.Product;
 import com.zjy.springboot.pojo.TUser;
+import org.apache.tomcat.util.security.MD5Encoder;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Binding;
@@ -29,6 +32,8 @@ class SpringbootApplicationTests {
     RabbitTemplate rabbitTemplate;
     @Resource
     ThreadPoolExecutor threadPoolAutoConfiguration;
+    @Resource
+    ProductMapper productMapper;
     @Test
     void contextLoads() {
     }
@@ -64,5 +69,16 @@ class SpringbootApplicationTests {
     @Test
     public void test1(){
         System.out.println(threadPoolAutoConfiguration.getCorePoolSize());
+    }
+
+    @Test
+    public void testSharding(){
+        Product product = productMapper.selectByMyId(687393276713500672L);
+        System.out.println(product.getName());
+    }
+
+    @Test
+    public void MD5(){
+        System.out.println(MD5Encoder.encode("你好啊".getBytes()));
     }
 }

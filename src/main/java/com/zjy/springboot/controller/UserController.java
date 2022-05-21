@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -135,5 +136,18 @@ public class UserController {
         String email = emailJson.getString("email");
         System.out.println(email);
         return "请求成功";
+    }
+
+    @SneakyThrows
+    @GetMapping("/test/obs")
+    @ResponseBody
+//    public ModelAndView obs(){
+//        String url = "redirect:https://zjy-test.obs.cn-east-3.myhuaweicloud.com/testObs.txt?AccessKeyId=A7KTXIUDPHADZ4IBL9PX&Expires=1642930623&Signature=bRGABf48jH3BDI1PjOnldrkXoaw%3D";
+//        return new ModelAndView(url);
+//    }
+    public void obs(HttpServletResponse resp){
+        String url = "http://ow365.cn/?i=28557&furl=https://tj-bpm-qa.obs.cn-south-1.myhuaweicloud.com/upload/attachment/01c34914-394f-4150-a336-8ab95362f5e6.jpg?AccessKeyId=7D2YTIPNIXQPYJER4QYL&Expires=1642931173&Signature=3NjXyWKnIcVAlNMGWtODKDRuL24%3D&ssl=1";
+        resp.sendRedirect(url);
+
     }
 }

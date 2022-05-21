@@ -35,7 +35,7 @@ public class SendMessageController {
     @GetMapping("/sendConfirm/{message}")
     public String sendConfirmMessage(@PathVariable("message") String message){
         CorrelationData correlationData = new CorrelationData("1");
-        rabbitTemplate.convertAndSend("sms.exchange","sms.verifyCode111",message,correlationData);
+        rabbitTemplate.convertAndSend("sms.exchange","sms.verifyCode",message,correlationData);
         return "发送一条消息 :"+message;
     }
 

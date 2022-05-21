@@ -1,8 +1,6 @@
 package com.zjy.springboot.service;
 
-import com.zjy.springboot.mapper.TCommentMapper;
 import com.zjy.springboot.mapper.UserMapper;
-import com.zjy.springboot.pojo.TCommentExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -21,8 +19,6 @@ import javax.annotation.Resource;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
-    @Resource
-    private TCommentMapper commentMapper;
     @Autowired
     private RedisTemplate redisTemplate;
     //声明事务
@@ -31,12 +27,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean deleteById(Long id) {
         int i = userMapper.delete(id);
-        TCommentExample tCommentExample = new TCommentExample();
-        tCommentExample.createCriteria().andAuthoridEqualTo(id);
         int a=3/0;
-        int i1 = commentMapper.deleteByExample(tCommentExample);
         redisTemplate.delete("userList");
-        return i > 0 && i1 > 0;
+        return true;
     }
     
 }
