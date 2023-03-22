@@ -24,8 +24,8 @@ public class Consumer {
     //用来监听指定的队列
     @RabbitListener(queues = "sms.verifyCode",containerFactory = "rabbitListenerContainerFactory")
     public  void sendSms(String username) throws InterruptedException {
+        log.info("开始消费验证码消息");
         int i = (int) (Math.random() * 8999 + 1000);
-        Thread.sleep(1000);
         log.info("发送验证码成功!用户名:{},验证码:{}",username,i);
         redisTemplate.opsForValue().set("code:"+username,i,1, TimeUnit.MINUTES);
     }

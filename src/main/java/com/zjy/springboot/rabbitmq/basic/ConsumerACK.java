@@ -40,7 +40,6 @@ public class ConsumerACK {
         CancelCallback cancelCallback = (String var1)->{
             System.out.println("消费者取消消费");
         };
-
         // 监听队列，第二个参数：是否自动进行消息确认。
         System.out.println("消费者2 等待接收消息。。。。。。。。");
         //手动应答

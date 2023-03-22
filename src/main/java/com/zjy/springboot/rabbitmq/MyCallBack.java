@@ -3,6 +3,7 @@ package com.zjy.springboot.rabbitmq;
 //  created by zjy on 2021/11/29 20:19
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.ReturnedMessage;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -31,7 +32,10 @@ public class MyCallBack implements RabbitTemplate.ConfirmCallback, RabbitTemplat
 
         String receivedExchange = null;
         if (correlationData != null) {
-            receivedExchange = correlationData.getReturnedMessage().getMessageProperties().getReceivedExchange();
+            Message returnedMessage = correlationData.getReturnedMessage();
+            if (returnedMessage != null) {
+                receivedExchange = returnedMessage.getMessageProperties().getReceivedExchange();
+            }
         }
         if (ack) {
             log.info(receivedExchange + "交换机已经收到id为{}的消息", id);
