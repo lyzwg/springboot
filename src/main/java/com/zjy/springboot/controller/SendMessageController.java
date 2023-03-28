@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.concurrent.ThreadPoolExecutor;
 
 @RestController
 public class SendMessageController {
     @Autowired
     RabbitTemplate rabbitTemplate;
-    @Resource
+    @Autowired
     ThreadPoolExecutor myThreadPool;
 
 
@@ -52,5 +51,10 @@ public class SendMessageController {
     public String testCache(@PathVariable("param") String param){
         int corePoolSize = myThreadPool.getCorePoolSize();
         return param+":"+corePoolSize;
+    }
+
+    @GetMapping("/test/sendws/{userId}/{message}")
+    public void sendws(@PathVariable("message") String message,@PathVariable("userId") String userId){
+//        WebSocketServer.sendOneMessage(userId,message);
     }
 }

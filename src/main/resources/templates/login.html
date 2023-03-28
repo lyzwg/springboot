@@ -8,23 +8,92 @@
 <form th:action="@{/user/login}">
     用户名<input type="text" name="username" id="username"><br>
     密码<input type="password" name="password"><br>
-    验证码:<input type="text" name="code" >
+    验证码:<input type="text" name="code">
     <a id="codeBtn" href="javascript:void(0)">获取验证码</a><br>
     <input type="submit" value="登录">
 </form>
 <script th:src="@{/js/jQuery.js}"></script>
 <script>
-    $(function () {
+    var websocket = null;
+    //判断当前浏览器是否支持WebSocket，是则创建WebSocket
+    if ('WebSocket' in window) {
+        console.log("浏览器支持Websocket");
+        websocket = new WebSocket("ws://localhost:8090/websocket/test");
+    } else {
+        alert('当前浏览器 Not support websocket')
+    }
+
+    //连接发生错误的回调方法
+    websocket.onerror = function () {
+        console.log("WebSocket连接发生错误");
+        setMessageInnerHTML("WebSocket连接发生错误");
+    };
+    //连接成功建立的回调方法
+    websocket.onopen = function () {
+//    setMessageInnerHTML("WebSocket连接成功");
+        console.log("WebSocket连接成功");
+    }
+    //接收到消息的回调方法
+    websocket.onmessage = function (event) {
+        if (event.data) {
+            setMessageInnerHTML(event.data);
+        }
+        console.log(event.data);
+    }
+    //连接关闭的回调方法
+    websocket.onclose = function () {
+        console.log("WebSocket连接关闭");
+    }
+
+    //关闭WebSocket连接
+    function closeWebSocket() {
+        websocket.close();
+    }
+
+    //发送消息
+    function send() {
+        var message = document.getElementById('text').value;
+        websocket.send(message);
+    }
+
+    // 建立连接的方法
+    function openWebSocket() {
+        // websocket = new WebSocket("ws://localhost:8888/websocket/乔丹");
+        websocket = new websocket("ws://localhost:8090/websocket/test");
+        websocket.onopen = function () {
+//    setMessageInnerHTML("WebSocket连接成功");
+            console.log("WebSocket连接成功");
+        }
+    }
+
+
+    //将消息显示在网页上
+
+    function setMessageInnerHTML(innerHTML) {
+
+        document.getElementById('message').innerHTML += innerHTML + '<br/>';
+
+    }
+
+    //如果websocket连接还没断开就关闭了窗口，后台server端会抛异常。
+    //所以增加监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接
+    window.onbeforeunload = function () {
+        closeWebSocket();
+    }
+
+
+
+
         $("#codeBtn").click(function () {
-            $.post("/user/sendCode",{username:$("#username").val()},function (result) {
-                if (result.code==0){
+            $.post("/user/sendCode", {username: $("#username").val()}, function (result) {
+                if (result.code == 0) {
                     alert("短信发送成功！请注意查收");
-                }else{
+                } else {
                     alert("短信发送失败，请稍后重试")
                 }
             })
         })
-    })
+
 </script>
 </body>
 </html>

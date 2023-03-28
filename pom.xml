@@ -161,10 +161,16 @@
         </dependency>
 
         <!--自定义的starter-->
+<!--        <dependency>-->
+<!--            <groupId>com.zjy</groupId>-->
+<!--            <artifactId>mytest-spring-boot-starter</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
+
+        <!-- 引入websocket -->
         <dependency>
-            <groupId>com.zjy</groupId>
-            <artifactId>mytest-spring-boot-starter</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
 
         <dependency>
