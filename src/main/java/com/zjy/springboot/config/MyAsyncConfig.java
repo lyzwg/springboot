@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class MyAsyncConfig implements AsyncConfigurer {
@@ -32,5 +34,10 @@ public class MyAsyncConfig implements AsyncConfigurer {
         //如果不用bean注入的方式 则需要此步骤初始化线程池
 //        executor.initialize();
         return executor;
+    }
+
+    @Bean
+    public ThreadPoolExecutor threadPoolExecutor(){
+        return new ThreadPoolExecutor(5,10,1L, TimeUnit.MINUTES,new ArrayBlockingQueue<>(100));
     }
 }
