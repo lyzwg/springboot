@@ -167,6 +167,11 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>-->
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
         <!-- canal -->
         <dependency>
             <groupId>com.alibaba.otter</groupId>
